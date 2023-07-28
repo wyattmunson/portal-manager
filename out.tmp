@@ -1,0 +1,5 @@
+CONTAINER ID   IMAGE                COMMAND                  CREATED       STATUS                 PORTS                    NAMES
+fd5417ac302f   iotstack_mosquitto   "/docker-entrypoint.…"   5 hours ago   Up 2 hours (healthy)   0.0.0.0:1883->1883/tcp   mosquitto
+cc69af445180   iotstack_nodered     "./entrypoint.sh"        5 hours ago   Up 2 hours (healthy)   0.0.0.0:1880->1880/tcp   nodered
+d16a38984402   grafana/grafana      "/run.sh"                5 hours ago   Up 2 hours (healthy)   0.0.0.0:3000->3000/tcp   grafana
+c29505ec094d   influxdb:1.8         "/entrypoint.sh infl…"   5 hours ago   Up 2 hours (healthy)   0.0.0.0:8086->8086/tcp   influxdb

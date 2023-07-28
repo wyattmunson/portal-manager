@@ -66,3 +66,76 @@ def getMemoryUsage():
     warden.runCommand([cmd])
 
 getMemoryUsage()
+
+## VALIDATED
+def systemctl_stats(service, vanity=False):
+    # Return Codes [LSB/systemd]
+    # 0 - Online
+    # 1 - Program dead and lock file/unit not failed
+    # 2 - program dead and no lock/unused
+    # 3 - Not running Inactive
+    # 4 - Service is not found
+    command = "sudo systemctl status %s" % (service)
+    res = run_command(command)
+    print("GOT RES", res)
+    return_code = res.returncode
+
+    if vanity:
+        # returns array with each line as element
+        formatting = """ | head | jq --raw-input --slurp 'split("\n")'"""
+        res = run_command(command + formatting)
+
+    # TODO: return value (return code, body)
+
+def systemctl_start(service, vanity=False):
+    # Return Codes [LSB/systemd]
+    # 0 - Command not reject, may not have started service
+    # 5 - Service is not found
+
+    command = "sudo systemctl start %s" % (service)
+    res = run_command(command)
+    print("GOT RES", res)
+    return_code = res.returncode
+
+    if vanity:
+        # returns array with each line as element
+        formatting = """ | head | jq --raw-input --slurp 'split("\n")'"""
+        res = run_command(command + formatting)
+
+    # handle change config
+    if res.stderr:
+        pass
+    # TODO: return value (return code, body)
+
+
+def systemctl_daemon_reload():
+    # Return Codes [LSB/systemd]
+    # 0 - Command not reject, may not have started service
+    # 5 - Service is not found
+
+    command = "sudo systemctl daemon-reload"
+    res = run_command(command)
+    print("GOT RES", res)
+    return_code = res.returncode
+
+    # handle change config
+    if res.stderr:
+        pass
+    # TODO: return value (return code, body)
+
+
+def systemctl_stop(service, vanity=False):
+    # Return Codes [LSB/systemd]
+    # 0 - Command not reject, may not have started service
+    # 5 - Service is not found
+
+    command = "sudo systemctl stop %s" % (service)
+    res = run_command(command)
+    print("GOT RES", res)
+    return_code = res.returncode
+
+
+    # handle change config
+    if res.stderr:
+        pass
+    # TODO: return value (return code, body)
