@@ -1,0 +1,15 @@
+# portal-manager.service
+[Unit]
+Description=Portal Manager for WAS
+After=network.target
+
+[Service]
+Type=simple
+WorkingDirectory=/home/mainframe/portal-manager
+ExecStart=/usr/local/bin/python
+User=jekyll
+Group=jekyll
+Restart=always
+
+[Install]
+WantedBy=multi-user.target
