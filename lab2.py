@@ -1,6 +1,5 @@
 from flask import Flask
 import subprocess
-import re
 
 
 def split_string(string):
@@ -23,24 +22,8 @@ def run_command(command, stdout_as_text=True):
     return response
 
 
-def check_version(stdout, min_ver=None, max_ver=None):
-    print("IN VER:", stdout)
-    regex = r"\d+(\.\d+)+"
-    ver_string = re.search(regex, stdout)
-    ver_string = str(ver_string.group())
-    print("OUT VER:", ver_string)
-    if not stdout:
-        # check version
-        pass
-    ver_arr = ver_string.split(".")
-    print(ver_arr)
-
-
-ressi = run_command("docker --version", stdout_as_text=True)
+ressi = run_command("ls -la", stdout_as_text=False)
 print(ressi)
-print(ressi.stdout)
-ver_check = check_version(ressi.stdout)
-print(ver_check)
 
 
 def systemctl_stats(service, vanity=False):
