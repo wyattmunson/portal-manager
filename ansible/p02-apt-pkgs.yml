@@ -51,3 +51,9 @@
     - name: Install Docker Module for Python
       pip:
         name: docker
+
+    - name: Install docker compose
+      apt:
+        pkg:
+          - docker-compose
+        state: latest
