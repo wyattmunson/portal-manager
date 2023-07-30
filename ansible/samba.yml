@@ -1,0 +1,49 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+    - ./defaults/main.yml
+
+  tasks:
+    - name: Create shared network directory
+      file:
+        path: "{{ home_path }}/shared"
+        state: directory
+        mode: "0755"
+        owner: mainframe
+        group: mainframe
+
+    - name: Install Samba
+      apt:
+        pkg:
+          - samba
+        state: latest
+        update_cache: true
+    
+    # - name: Create Samba user
+    #   apt:
+    #     shell:
+    #       "sudo smbpasswd -a {{ main_user }}"
+    #     state: latest
+    #     update_cache: true
+    - name: Update Sambda configuration
+      blockinfile:
+        state: present
+        insertafter: EOF
+        dest: /etc/samba/smb.conf
+        block: |
+          [homecloud]
+              path = /home/{{ main_user }}/shared
+              writeable = Yes
+              create mask = 0777
+              directory mask = 0777
+              public = no
+    
+    - name: Restart smbd
+      ansible.builtin.service:
+        name: smbd
+        state: restarted
+
+
+
