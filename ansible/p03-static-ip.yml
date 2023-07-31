@@ -13,14 +13,15 @@
         state: latest
         update_cache: true
 
+    - name: Create netplan directory
+      file:
+        path: "/etc/netplan"
+        state: directory
+
     - name: Write netplan conig file
       copy:
         dest: "/etc/netplan/00-installer-config.yaml"
         src: "{{ home_path }}/portal-manager/ansible/defaults/netplan.yaml"
 
     - name: Run netplan
-      shell:
-        "sudo netplan apply"
-
-
-
+      shell: "sudo netplan apply"
