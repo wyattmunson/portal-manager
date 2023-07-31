@@ -1,0 +1,30 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+    - ./defaults/main.yml
+
+  tasks:
+    # - name: Verify NetworkManager is installed
+    #   setup:
+    #   register: foo_result
+
+    - name: Verify NetworkManager is installed
+      apt:
+        pkg:
+          - ca-certificates
+      register: foo_result
+
+    - name: Write netplan conig file
+      copy:
+        dest: "./results2.json"
+        # content: |
+        #   tester
+        content: "{{ foo_result }}"
+
+    # - name: Run netplan
+    #   shell:
+    #     "sudo netplan apply"
+
+

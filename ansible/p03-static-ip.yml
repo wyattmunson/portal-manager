@@ -1,0 +1,26 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+    - ./defaults/main.yml
+
+  tasks:
+    - name: Verify NetworkManager is installed
+      apt:
+        pkg:
+          - net-tools
+        state: latest
+        update_cache: true
+
+    - name: Write netplan conig file
+      copy:
+        dest: "/etc/netplan/00-installer-config.yaml"
+        src: "{{ home_path }}/portal-manager/ansible/defaults/netplan.yaml"
+
+    - name: Run netplan
+      shell:
+        "sudo netplan apply"
+
+
+

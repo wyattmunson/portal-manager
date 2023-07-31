@@ -1,0 +1,55 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+    - ./defaults/main.yml
+
+  tasks:
+    # - name: Write a file
+    #   copy:
+    #     dest: "/home/mainframe/test2.txt"
+    #     content: |
+    #       here is a file
+
+    # - name: Write netplan conig file
+    #   copy:
+    #     dest: "/home/mainframe/test23.yaml"
+    #     # src: "/home/mainframe/portal-manager/ansible/defaults/netplan.yaml"
+    #     src: "{{ home_path }}/portal-manager/ansible/defaults/netplan.yaml"
+
+    # - name: Run netplan
+    #   shell:
+    #     "sudo netplan apply"
+
+    # - name: Add line to profile
+    #   lineinfile:
+    #     dest: "/boot/config.txt"
+    
+    # NOT WORKING
+    # - name: Check machine config
+    #   setup:
+    #     gather_subset: all
+    #     register: tester
+    #     debug: var=tester
+
+    # MANAGE SERVICE WITH SYSTEMCTL (systemd)
+    - name: Start systemctl service
+      service:
+        name: docker
+        state: started
+
+    # MANAGE SERVICE WITH SYSTEMCTL (systemd)
+    - name: Restart network service for interface eth0
+      ansible.builtin.service:
+        name: network
+        state: restarted
+        args: eth0
+
+    # SET PROMPT
+    - name: Set user PS1 to a two-line prompt
+      lineinfile:
+        dest: "/home/{{ user }}/.bashrc"
+        insertafter: EOF
+        line: "PS1='${debian_chroot:+($debian_chroot)}\\[\\033[01;32m\\]\\u@\\h\\[\\033[00m\\]:\\[\\033[01;34m\\]\\w\\[\\033[00m\\]\\n\\$ '"
+        state: present

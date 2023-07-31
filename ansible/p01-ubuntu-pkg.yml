@@ -1,0 +1,43 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+    - name: Install curl and certificates
+      apt:
+        pkg:
+          - ca-certificates
+          - curl
+        state: latest
+        update_cache: true
+    - name: Install git
+      apt:
+        pkg:
+          - git
+        state: latest
+        update_cache: true
+    - name: Install network tools
+      apt:
+        pkg:
+          - net-tools
+          - nmap
+        state: latest
+        update_cache: true
+    - name: Install interactive mode tools
+      apt:
+        pkg:
+          - xclip
+        state: latest
+        update_cache: true
+    - name: Install formatting tools
+      apt:
+        pkg:
+          - jq
+        state: latest
+        update_cache: true
+    - name: Update apt cache and verify Vim installed
+      apt:
+        name: "{{ item }}"
+      loop:
+        - vim
+        - unzip

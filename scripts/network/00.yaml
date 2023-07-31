@@ -1,0 +1,14 @@
+# existing /etc/netplan/00-installer-config-wifi.yaml
+# this needed sudo for some reason
+
+# This is the network config written by 'subiquity'
+network:
+  version: 2
+  wifis: {}
+
+# mainframe@theflame:~$ ls -la /etc/netplan
+# total 16
+# drwxr-xr-x   2 root root 4096 Jul 30 04:37 .
+# drwxr-xr-x 101 root root 4096 Jul 30 04:54 ..
+# -rw-------   1 root root   86 Jul 30 04:37 00-installer-config-wifi.yaml
+# -rw-r--r--   1 root root  120 Jul 30 04:37 00-installer-config.yaml
