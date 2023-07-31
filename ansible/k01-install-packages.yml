@@ -25,10 +25,10 @@
           - openssh-server
         state: latest
 
-    - name: Enable ssh.service
-      service:
-        name: ssh
-        state: enabled
+    # - name: Enable ssh.service
+    #   service:
+    #     name: ssh
+    #     state: enabled
 
     - name: Verify ssh.service is started
       service:
