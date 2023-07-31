@@ -1,0 +1,70 @@
+---
+- name: Installing initial setup
+  hosts: localhost
+  connection: local
+  become: yes
+  vars_files:
+    - ./defaults/main.yml
+  tasks:
+    - name: Install curl and certificates
+      apt:
+        pkg:
+          - ca-certificates
+          - curl
+        state: latest
+        update_cache: true
+
+    # - name: Write blank SSH file
+    #   copy:
+    #     dest: "/etc/boot/ssh"
+    #     src: "{{ home_path }}/portal-manager/ansible/assets/network/ssh"
+
+    - name: Install OpenSSH Server
+      apt:
+        pkg:
+          - openssh-server
+        state: latest
+
+    - name: Enable ssh.service
+      service:
+        name: ssh
+        state: enabled
+
+    - name: Verify ssh.service is started
+      service:
+        name: ssh
+        state: started
+
+    - name: Set the hostname
+      hostname:
+        name: node01
+
+    # - name: Install git
+    #   apt:
+    #     pkg:
+    #       - git
+    #     state: latest
+    # - name: Install network tools
+    #   apt:
+    #     pkg:
+    #       - net-tools
+    #       - nmap
+    #     state: latest
+    # - name: Install interactive mode tools
+    #   apt:
+    #     pkg:
+    #       - xclip
+    #     state: latest
+
+    # - name: Install formatting tools
+    #   apt:
+    #     pkg:
+    #       - jq
+    #     state: latest
+
+    # - name: Update apt cache and verify Vim installed
+    #   apt:
+    #     name: "{{ item }}"
+    #   loop:
+    #     - vim
+    #     - unzip
