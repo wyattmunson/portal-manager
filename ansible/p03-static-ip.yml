@@ -6,10 +6,11 @@
     - ./defaults/main.yml
 
   tasks:
-    - name: Verify NetworkManager is installed
+    - name: Verify NetworkManager and netplan are installed
       apt:
         pkg:
           - net-tools
+          - netplan
         state: latest
         update_cache: true
 
