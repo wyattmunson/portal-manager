@@ -10,7 +10,7 @@
       apt:
         pkg:
           - net-tools
-          - netplan
+          - netplan.io
         state: latest
         update_cache: true
 
