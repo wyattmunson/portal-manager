@@ -7,8 +7,8 @@ After=network.target
 Type=simple
 WorkingDirectory=/home/mainframe/portal-manager
 ExecStart=/usr/local/bin/python
-User=jekyll
-Group=jekyll
+User=mainframe
+Group=mainframe
 Restart=always
 
 [Install]
