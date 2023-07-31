@@ -3,19 +3,20 @@
   connection: local
   become: yes
   tasks:
-    - name: Install curl and certificates
-      apt:
-        pkg:
-          - ca-certificates
-          - curl
-        state: latest
-        update_cache: true
-    - name: Install git
-      apt:
-        pkg:
-          - git
-        state: latest
-        update_cache: true
+    # TODO: These should be done in intial bootstrap install
+    # - name: Install curl and certificates
+    #   apt:
+    #     pkg:
+    #       - ca-certificates
+    #       - curl
+    #     state: latest
+    #     update_cache: true
+    # - name: Install git
+    #   apt:
+    #     pkg:
+    #       - git
+    #     state: latest
+    #     update_cache: true
     - name: Install network tools
       apt:
         pkg:
@@ -28,13 +29,11 @@
         pkg:
           - xclip
         state: latest
-        update_cache: true
     - name: Install formatting tools
       apt:
         pkg:
           - jq
         state: latest
-        update_cache: true
     - name: Update apt cache and verify Vim installed
       apt:
         name: "{{ item }}"
