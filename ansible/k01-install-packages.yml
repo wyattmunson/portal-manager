@@ -30,10 +30,11 @@
     #     name: ssh
     #     state: enabled
 
-    - name: Verify ssh.service is started
+    - name: Verify ssh.service is started and enabled
       service:
         name: ssh
         state: started
+        enabled: true
 
     - name: Set the hostname
       hostname:
