@@ -1,0 +1,22 @@
+---
+- hosts: localhost
+  connection: local
+  become: yes
+  tasks:
+
+    - name: Add GH CLI GPG apt Key
+      apt_key:
+        url: https://cli.github.com/packages/githubcli-archive-keyring.gpg
+        state: present
+
+    - name: Add GH CLI Apt Repository
+      apt_repository:
+        repo: deb https://cli.github.com/packages stable main
+        state: present
+
+    - name: Install GH CLI   
+      apt:
+        pkg:
+          - gh
+        state: latest
+        update_cache: true
