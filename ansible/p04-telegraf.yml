@@ -23,6 +23,11 @@
         state: latest
         update_cache: true
 
+    - name: Start telegraf.service
+      service:
+        name: telegraf
+        state: started
+    
     - name: Enable telegraf.service to start on boot
       service:
         name: telegraf
